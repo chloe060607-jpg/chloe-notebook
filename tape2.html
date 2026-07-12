@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tape 2</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { background:transparent; }
+body {
+  min-height:100vh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  font-family:'Courier New', monospace;
+  gap:14px;
+}
+
+/* Container matches image aspect ratio: 735 x 469 */
+.tape {
+  position:relative;
+  width:min(560px, 92vw);
+  aspect-ratio: 735 / 469;
+  cursor:pointer;
+  user-select:none;
+  -webkit-user-select:none;
+  transition:transform .2s ease;
+}
+.tape:hover { transform:scale(1.015); }
+
+.tape-img {
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  background-image:url('tape-image2.png');
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+  z-index:2;
+  pointer-events:none;
+}
+
+/* ── Reels behind the holes ── */
+.reel {
+  position:absolute;
+  z-index:1;
+  border-radius:50%;
+  background:#efe8d6;
+}
+/* left hole: x 179-256, y 170-254 (of 735x469) */
+.reel.left {
+  left:23.5%; top:35.8%;
+  width:12%; aspect-ratio:1/1;
+}
+/* right hole: x 487-565, y 177-256 */
+.reel.right {
+  left:65.5%; top:36.8%;
+  width:12%; aspect-ratio:1/1;
+}
+.reel::before {
+  content:'';
+  position:absolute; inset:12%;
+  border-radius:50%;
+  background:
+    conic-gradient(#2a251d 0 14deg, transparent 14deg 60deg,
+                   #2a251d 60deg 74deg, transparent 74deg 120deg,
+                   #2a251d 120deg 134deg, transparent 134deg 180deg,
+                   #2a251d 180deg 194deg, transparent 194deg 240deg,
+                   #2a251d 240deg 254deg, transparent 254deg 300deg,
+                   #2a251d 300deg 314deg, transparent 314deg 360deg);
+}
+.reel::after {
+  content:'';
+  position:absolute; inset:34%;
+  border-radius:50%;
+  background:#efe8d6;
+  border:2px solid #2a251d;
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+.playing .reel { animation:spin 2s linear infinite; }
+
+.time {
+  font-size:13px; letter-spacing:3px;
+  color:#b8ab8e;
+  text-shadow:0 1px 3px rgba(0,0,0,.6);
+}
+</style>
+</head>
+<body>
+
+<div class="tape" id="tape">
+  <div class="reel left"></div>
+  <div class="reel right"></div>
+  <div class="tape-img"></div>
+</div>
+
+<div class="time" id="time">00:00 / 00:00</div>
+
+<audio id="player" src="tape2-audio.mp3" preload="metadata"></audio>
+
+<script>
+const tape = document.getElementById('tape');
+const player = document.getElementById('player');
+const timeEl = document.getElementById('time');
+
+function fmt(s) {
+  if (!isFinite(s)) return '00:00';
+  const m = Math.floor(s / 60), sec = Math.floor(s % 60);
+  return String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0');
+}
+
+tape.addEventListener('click', () => {
+  if (player.paused) { player.play(); } else { player.pause(); }
+});
+
+player.addEventListener('play',  () => tape.classList.add('playing'));
+player.addEventListener('pause', () => tape.classList.remove('playing'));
+player.addEventListener('ended', () => tape.classList.remove('playing'));
+
+function updateTime() {
+  timeEl.textContent = fmt(player.currentTime) + ' / ' + fmt(player.duration);
+}
+player.addEventListener('timeupdate', updateTime);
+player.addEventListener('loadedmetadata', updateTime);
+</script>
+</body>
+</html>
