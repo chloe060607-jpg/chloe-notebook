@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chloe Wilson — Diary</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html, body {
+  background:transparent;
+}
+
+#nb-stage {
+  position:fixed;
+  top:50%; left:50%;
+  width:1004px; height:740px;
+  display:flex; align-items:center; justify-content:center;
+  transform-origin:center center;
+}
+
+body {
+  overflow:hidden;
+  cursor:url("data:image/png;base64,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") 0 0, auto;
+  min-height:100vh;
+  padding:0;
+}
+
+/* ════ COVER ════ */
+#nb-cover {
+  width:440px; height:640px; cursor:pointer;
+  transition:transform .45s ease, opacity .45s ease;
+  filter:none;
+  display:block;
+  position:relative;
+}
+#nb-cover:hover { transform:scale(1.02); }
+#nb-cover.nb-closing { opacity:0; transform:scale(.96); }
+.nb-cover-img {
+  width:100%; height:100%;
+  background-image:url('cover.png');
+  background-size:100% 100%; background-repeat:no-repeat;
+  position:relative; overflow:hidden;
+}
+.nb-open-hint {
+  position:absolute; bottom:26px; left:0; right:0;
+  text-align:center;
+  font-family:Georgia, serif; font-style:italic;
+  font-size:15px; color:rgba(245,225,190,.85);
+  letter-spacing:2px;
+  text-shadow:0 1px 6px rgba(0,0,0,.8);
+  opacity:0; transition:opacity .3s;
+}
+#nb-cover:hover .nb-open-hint { opacity:1; }
+
+/* ════ OPEN BOOK ════ */
+#nb-book-open { display:none; flex-direction:column; align-items:center; }
+#nb-book-open.nb-on { display:flex; animation:nbfade .5s ease; }
+@keyframes nbfade {
+  from { opacity:0; transform:scale(.97); }
+  to { opacity:1; transform:scale(1); }
+}
+
+#flipbook-wrap {
+  filter:none;
+  position:relative;
+  width:1004px;
+  height:730px;
+}
+
+#flipbook {
+  width:1004px;
+  height:730px;
+}
+
+.page {
+  width:502px;
+  height:730px;
+  overflow:hidden;
+  position:relative;
+  user-select:none;
+  background-color:transparent;
+}
+.page.lp { border-radius:8px 0 0 8px; }
+.page.rp { border-radius:0 8px 8px 0; }
+
+.pg {
+  width:100%; height:100%;
+  background-repeat:no-repeat;
+}
+.page.lp .pg { border-radius:8px 0 0 8px; }
+.page.rp .pg { border-radius:0 8px 8px 0; }
+
+/* subtle spine shading */
+.page.lp .pg::after {
+  content:''; position:absolute; top:0; right:0; bottom:0; width:34px;
+  background:linear-gradient(to left, rgba(0,0,0,.16), rgba(0,0,0,0));
+  pointer-events:none;
+}
+.page.rp .pg::after {
+  content:''; position:absolute; top:0; left:0; bottom:0; width:34px;
+  background:linear-gradient(to right, rgba(0,0,0,.16), rgba(0,0,0,0));
+  pointer-events:none;
+}
+.pg { position:relative; }
+</style>
+</head>
+<body>
+
+<div id="nb-stage">
+
+<!-- ════ COVER ════ -->
+<div id="nb-cover" onclick="nbOpen()">
+  <div class="nb-cover-img">
+    <div class="nb-open-hint">open the notebook ›</div>
+  </div>
+</div>
+
+<!-- ════ BOOK OPEN ════ -->
+<div id="nb-book-open">
+  <div id="flipbook-wrap">
+
+    <!-- Click zone: left side → back / close on first spread -->
+    <div id="nb-zone-left" onclick="onPrev()" style="
+      position:absolute; top:0; left:0;
+      width:120px; height:100%;
+      z-index:50; cursor:w-resize;
+      background:transparent;
+    "></div>
+
+    <!-- Click zone: right side → forward / close on last spread -->
+    <div id="nb-zone-right" onclick="onNext()" style="
+      position:absolute; top:0; right:0;
+      width:120px; height:100%;
+      z-index:50; cursor:e-resize;
+      background:transparent;
+    "></div>
+
+    <div id="flipbook">
+      <div class="page lp">
+        <div class="pg" style="background-image:url('1.png');background-size:200% 100%;background-position:left center;"></div>
+      </div>
+      <div class="page rp">
+        <div class="pg" style="background-image:url('1.png');background-size:200% 100%;background-position:right center;"></div>
+      </div>
+      <div class="page lp">
+        <div class="pg" style="background-image:url('2.png');background-size:200% 100%;background-position:left center;"></div>
+      </div>
+      <div class="page rp">
+        <div class="pg" style="background-image:url('2.png');background-size:200% 100%;background-position:right center;"></div>
+      </div>
+      <div class="page lp">
+        <div class="pg" style="background-image:url('3.png');background-size:200% 100%;background-position:left center;"></div>
+      </div>
+      <div class="page rp">
+        <div class="pg" style="background-image:url('3.png');background-size:200% 100%;background-position:right center;"></div>
+      </div>
+      <div class="page lp">
+        <div class="pg" style="background-image:url('4.png');background-size:200% 100%;background-position:left center;"></div>
+      </div>
+      <div class="page rp">
+        <div class="pg" style="background-image:url('4.png');background-size:200% 100%;background-position:right center;"></div>
+      </div>
+      <div class="page lp">
+        <div class="pg" style="background-image:url('5.png');background-size:200% 100%;background-position:left center;"></div>
+      </div>
+      <div class="page rp">
+        <div class="pg" style="background-image:url('5.png');background-size:200% 100%;background-position:right center;"></div>
+      </div>
+      <div class="page lp">
+        <div class="pg" style="background-image:url('6.png');background-size:200% 100%;background-position:left center;"></div>
+      </div>
+      <div class="page rp">
+        <div class="pg" style="background-image:url('6.png');background-size:200% 100%;background-position:right center;"></div>
+      </div>
+      <div class="page lp">
+        <div class="pg" style="background-image:url('7.png');background-size:200% 100%;background-position:left center;"></div>
+      </div>
+      <div class="page rp">
+        <div class="pg" style="background-image:url('7.png');background-size:200% 100%;background-position:right center;"></div>
+      </div>
+      <div class="page lp">
+        <div class="pg" style="background-image:url('8.png');background-size:200% 100%;background-position:left center;"></div>
+      </div>
+      <div class="page rp">
+        <div class="pg" style="background-image:url('8.png');background-size:200% 100%;background-position:right center;"></div>
+      </div>
+      <div class="page lp">
+        <div class="pg" style="background-image:url('9.png');background-size:200% 100%;background-position:left center;"></div>
+      </div>
+      <div class="page rp">
+        <div class="pg" style="background-image:url('9.png');background-size:200% 100%;background-position:right center;"></div>
+      </div>
+      <div class="page lp">
+        <div class="pg" style="background-image:url('10.png');background-size:200% 100%;background-position:left center;"></div>
+      </div>
+      <div class="page rp">
+        <div class="pg" style="background-image:url('10.png');background-size:200% 100%;background-position:right center;"></div>
+      </div>
+      <div class="page lp">
+        <div class="pg" style="background-image:url('11.png');background-size:200% 100%;background-position:left center;"></div>
+      </div>
+      <div class="page rp">
+        <div class="pg" style="background-image:url('11.png');background-size:200% 100%;background-position:right center;"></div>
+      </div>
+      <div class="page lp">
+        <div class="pg" style="background-image:url('12.png');background-size:200% 100%;background-position:left center;"></div>
+      </div>
+      <div class="page rp">
+        <div class="pg" style="background-image:url('12.png');background-size:200% 100%;background-position:right center;"></div>
+      </div>
+      <div class="page lp">
+        <div class="pg" style="background-image:url('13.png');background-size:200% 100%;background-position:left center;"></div>
+      </div>
+      <div class="page rp">
+        <div class="pg" style="background-image:url('13.png');background-size:200% 100%;background-position:right center;"></div>
+      </div>
+      <div class="page lp">
+        <div class="pg" style="background-image:url('14.png');background-size:200% 100%;background-position:left center;"></div>
+      </div>
+      <div class="page rp">
+        <div class="pg" style="background-image:url('14.png');background-size:200% 100%;background-position:right center;"></div>
+      </div>
+      <div class="page lp">
+        <div class="pg" style="background-image:url('15.png');background-size:200% 100%;background-position:left center;"></div>
+      </div>
+      <div class="page rp">
+        <div class="pg" style="background-image:url('15.png');background-size:200% 100%;background-position:right center;"></div>
+      </div>
+      <div class="page lp">
+        <div class="pg" style="background-image:url('16.png');background-size:200% 100%;background-position:left center;"></div>
+      </div>
+      <div class="page rp">
+        <div class="pg" style="background-image:url('16.png');background-size:200% 100%;background-position:right center;"></div>
+      </div>
+      <div class="page lp">
+        <div class="pg" style="background-image:url('17.png');background-size:200% 100%;background-position:left center;"></div>
+      </div>
+      <div class="page rp">
+        <div class="pg" style="background-image:url('17.png');background-size:200% 100%;background-position:right center;"></div>
+      </div>
+      <div class="page lp">
+        <div class="pg" style="background-image:url('18.png');background-size:200% 100%;background-position:left center;"></div>
+      </div>
+      <div class="page rp">
+        <div class="pg" style="background-image:url('18.png');background-size:200% 100%;background-position:right center;"></div>
+      </div>
+      <div class="page lp">
+        <div class="pg" style="background-image:url('19.png');background-size:200% 100%;background-position:left center;"></div>
+      </div>
+      <div class="page rp">
+        <div class="pg" style="background-image:url('19.png');background-size:200% 100%;background-position:right center;"></div>
+      </div>
+      <div class="page lp">
+        <div class="pg" style="background-image:url('20.png');background-size:200% 100%;background-position:left center;"></div>
+      </div>
+      <div class="page rp">
+        <div class="pg" style="background-image:url('20.png');background-size:200% 100%;background-position:right center;"></div>
+      </div>
+    </div><!-- end #flipbook -->
+  </div><!-- end #flipbook-wrap -->
+</div>
+
+</div><!-- end #nb-stage -->
+
+<!-- StPageFlip — realistic page-turn library -->
+<script src="https://unpkg.com/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+<script>
+let pageFlip = null;
+
+// ── Preload all page images so flipping is instant ──
+(function preloadPages() {
+  for (let i = 1; i <= 20; i++) {
+    const img = new Image();
+    img.src = i + '.png';
+  }
+})();
+
+function nbOpen() {
+  const cover = document.getElementById('nb-cover');
+  cover.classList.add('nb-closing');
+  setTimeout(() => {
+    cover.style.display = 'none';
+    cover.classList.remove('nb-closing');
+    const bookEl = document.getElementById('nb-book-open');
+    bookEl.style.display = 'flex';
+    bookEl.classList.add('nb-on');
+
+    if (!pageFlip) {
+      pageFlip = new St.PageFlip(
+        document.getElementById('flipbook'),
+        {
+          width: 502,
+          height: 730,
+          size: 'fixed',
+          drawShadow: true,
+          flippingTime: 950,
+          usePortrait: false,
+          autoSize: false,
+          maxShadowOpacity: 0.55,
+          showCover: false,
+          mobileScrollSupport: false,
+          swipeDistance: 10,
+          clickEventForward: true,
+          useMouseEvents: true,
+          startZIndex: 0,
+        }
+      );
+      pageFlip.loadFromHTML(document.querySelectorAll('#flipbook .page'));
+    } else {
+      pageFlip.turnToPage(0);
+    }
+  }, 450);
+}
+
+function nbClose() {
+  const bookEl = document.getElementById('nb-book-open');
+  bookEl.classList.remove('nb-on');
+  bookEl.style.display = 'none';
+  document.getElementById('nb-cover').style.display = 'block';
+  if (pageFlip) pageFlip.turnToPage(0);
+}
+
+function onPrev() {
+  if (!pageFlip) return;
+  if (pageFlip.getCurrentPageIndex() === 0) {
+    nbClose();
+  } else {
+    pageFlip.flipPrev();
+  }
+}
+
+// ── Landscape lock: rotate on portrait screens & scale to fit ──
+function nbFit() {
+  const stage = document.getElementById('nb-stage');
+  const vw = window.innerWidth, vh = window.innerHeight;
+  const portrait = vh > vw;
+  const availW = portrait ? vh : vw;
+  const availH = portrait ? vw : vh;
+  const s = Math.min(availW / 1004, availH / 740, 1);
+  const rot = portrait ? ' rotate(90deg)' : '';
+  stage.style.transform = 'translate(-50%, -50%)' + rot + ' scale(' + s + ')';
+}
+window.addEventListener('resize', nbFit);
+window.addEventListener('orientationchange', () => setTimeout(nbFit, 120));
+nbFit();
+
+function onNext() {
+  if (!pageFlip) return;
+  if (pageFlip.getCurrentPageIndex() >= pageFlip.getPageCount() - 2) {
+    nbClose();
+  } else {
+    pageFlip.flipNext();
+  }
+}
+</script>
+</body>
+</html>
